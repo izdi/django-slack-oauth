@@ -14,10 +14,6 @@ import requests
 from .models import SlackUser
 
 
-class ForStartersView(TemplateView):
-    template_name = 'landing.html'
-
-
 class SlackAuthView(RedirectView):
     text_error = 'Attempt to update has failed. Please try again.'
 
