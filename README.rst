@@ -9,27 +9,25 @@ Installation
 
 * Add 'djslack' to your INSTALLED_APPS settings:
 
-`
-INSTALLED_APPS = (
+`INSTALLED_APPS = (
     ...
     'djslack',
-)
-`
+)`
 
-* Run `./manage syncdb` to add table for storing token
+2. Run `./manage syncdb` to add table for storing token
 
-* Include the djslack URLconf in your project urls.py:
+3. Include the djslack URLconf in your project urls.py:
 
 `url(r'^slack/', include('djslack.urls')),`
 
-*. Set up settings
+4. Set up settings
 
-`
+```
 SLACK_CLIENT_ID = os.environ.get('SLACK_CLIENT_ID')
 SLACK_CLIENT_SECRET = os.environ.get('SLACK_CLIENT_SECRET')
 SLACK_AUTHORIZATION_URL = 'https://slack.com/oauth/authorize'
 SLACK_OAUTH_ACCESS = 'https://slack.com/api/oauth.access'
-`
+```
 
 5. Use the url to authenticate your users in your templates
 
