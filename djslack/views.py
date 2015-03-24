@@ -31,7 +31,7 @@ class SlackAuthView(RedirectView):
         api_data = access_content.json()
         if not api_data['ok']:
             return self.error_message(api_data['error'])
-        slacker = SlackUser.objects.get_or_create(slacker=request.user)[0]
+        slacker, created = SlackUser.objects.get_or_create(slacker=request.user)
         slacker.access_token = api_data['access_token']
         slacker.save()
         messages.add_message(self.request, messages.SUCCESS, 'Your account has been successfully updated with '
