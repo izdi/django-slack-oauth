@@ -7,12 +7,14 @@ Django module for handling Slack OAuth
 Installation
 ============
 
-* Add 'djslack' to your INSTALLED_APPS settings:
+1. Add 'djslack' to your INSTALLED_APPS settings:
 
-`INSTALLED_APPS = (
-    ...
-    'djslack',
-)`
+.. code-block:: python
+
+    INSTALLED_APPS = (
+        ...
+        'djslack',
+    )
 
 2. Run `./manage syncdb` to add table for storing token
 
