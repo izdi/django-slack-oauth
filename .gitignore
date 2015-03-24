@@ -1,0 +1,12 @@
+*.pyc
+.*.swp
+*.sqlite3
+*.sql
+
+*.iml
+*.ipr
+*.iws
+.idea
+
+node_modules
+static/dist/js
