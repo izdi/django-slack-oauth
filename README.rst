@@ -25,6 +25,7 @@ Installation
 4. Set up settings
 
 .. code-block:: python
+
     SLACK_CLIENT_ID = os.environ.get('SLACK_CLIENT_ID')
     SLACK_CLIENT_SECRET = os.environ.get('SLACK_CLIENT_SECRET')
     SLACK_AUTHORIZATION_URL = 'https://slack.com/oauth/authorize'
