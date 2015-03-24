@@ -9,12 +9,12 @@ Installation
 
 * Add 'djslack' to your INSTALLED_APPS settings:
 
-
+`
 INSTALLED_APPS = (
     ...
     'djslack',
 )
-
+`
 
 * Run `./manage syncdb` to add table for storing token
 
