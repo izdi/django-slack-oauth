@@ -14,6 +14,3 @@ class TestModuleSetup(TestCase):
         for setting_var in self.slack_settings:
             if not hasattr(settings, setting_var):
                 raise self.fail('Set up %s in your project settings' % setting_var)
-
-    def test_slack_request(self):
-        pass

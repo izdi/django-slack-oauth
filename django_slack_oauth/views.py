@@ -14,6 +14,7 @@ from .models import SlackUser
 
 
 class SlackAuthView(RedirectView):
+    DEFAULT_SLACK_SCOPE = 'identify,read,post'
     text_error = 'Attempt to update has failed. Please try again.'
 
     @method_decorator(login_required)
@@ -39,10 +40,15 @@ class SlackAuthView(RedirectView):
         return self.response()
 
     def auth_request(self):
+        try:
+            scope = settings.SLACK_SCOPE
+        except AttributeError:
+            scope = self.DEFAULT_SLACK_SCOPE
+
         params = urllib.urlencode({
             'client_id': settings.SLACK_CLIENT_ID,
             'redirect_uri': self.request.build_absolute_uri(reverse('slack_auth')),
-            'scope': 'identify,read,post,client',
+            'scope': scope,
         })
         return self.response(settings.SLACK_AUTHORIZATION_URL + '?' + params)
 
