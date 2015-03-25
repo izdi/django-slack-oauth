@@ -11,7 +11,7 @@ Installation
 
 1. ``pip install django_slack_oauth``
 
-2. Add ``django_slack_oauth`` to your INSTALLED_APPS settings:
+|2. Add ``django_slack_oauth`` to your INSTALLED_APPS settings:
 
 .. code-block:: python
 
