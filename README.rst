@@ -20,7 +20,7 @@ Set up
 
     INSTALLED_APPS = (
         ...
-        'djslack',
+        'django_slack_oauth',
     )
 
 2. Run ``./manage syncdb`` to add table for storing token.
