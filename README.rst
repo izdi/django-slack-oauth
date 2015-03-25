@@ -9,7 +9,7 @@ In order to use Slack OAuth in your project you need to create application https
 Install
 ============
 
-``pip install django_slack_oauth``
+``pip install django-slack-oauth``
 
 Set up
 ============
