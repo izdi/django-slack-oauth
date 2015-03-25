@@ -9,7 +9,9 @@ In order to use Slack OAuth in your project you need to create application https
 Installation
 ============
 
-1. Add ``django_slack_oauth`` to your INSTALLED_APPS settings:
+1. ``pip install django_slack_oauth``
+
+2. Add ``django_slack_oauth`` to your INSTALLED_APPS settings:
 
 .. code-block:: python
 
@@ -18,13 +20,13 @@ Installation
         'djslack',
     )
 
-2. Run ``./manage syncdb`` to add table for storing token.
+3. Run ``./manage syncdb`` to add table for storing token.
 
-3. Include the djslack URLconf in your project urls.py:
+4. Include the djslack URLconf in your project urls.py:
 
 ``url(r'^slack/', include('django_slack_oauth.urls')),``
 
-4. Set up in your settings, these are required:
+5. Set up in your settings, these are required:
 
 .. code-block:: python
 
@@ -36,8 +38,8 @@ Installation
 Also you can provide in your settings custom scope with ``SLACK_SCOPE`` attribute.
 Default scope is ``identify,read,post``
 
-5. Use the url to authenticate your users in your templates
+6. Use the url to authenticate your users in your templates
 
 ``<a href='{% url 'slack_auth' %}'>Get slacked</a>``
 
-6. Find your token in ``slack_user`` table
+7. Find your token in ``slack_user`` table
