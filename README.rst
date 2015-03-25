@@ -2,7 +2,9 @@
 Django Slack Oauth
 ======================================
 
-Django module for handling Slack OAuth
+Django module for handling Slack OAuth.
+In order to use Slack OAuth in your project you need to create application https://api.slack.com/applications
+
 
 Installation
 ============
@@ -22,7 +24,7 @@ Installation
 
 ``url(r'^slack/', include('djslack.urls')),``
 
-4. Set up settings
+4. Set up in your settings
 
 .. code-block:: python
 

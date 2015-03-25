@@ -1,4 +1,3 @@
-import json
 import urllib
 
 from django.conf import settings

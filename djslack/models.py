@@ -13,4 +13,4 @@ class SlackUser(models.Model):
         return self.slacker
 
     class Meta:
-        db_name = 'slack_user'
+        db_table = 'slack_user'
