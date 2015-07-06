@@ -10,7 +10,7 @@ class SlackUser(models.Model):
         return self.access_token
 
     def __unicode__(self):
-        return self.slacker
+        return unicode(self.slacker)
 
     class Meta:
         db_table = 'slack_user'
