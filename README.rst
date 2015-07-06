@@ -39,7 +39,8 @@ Set up
     SLACK_OAUTH_ACCESS = 'https://slack.com/api/oauth.access'
 
 Also you can provide in your settings custom scope with ``SLACK_SCOPE`` attribute.
-Default scope is ``identify,read,post``
+Default scope is ``identify,read,post``. You can set a custom local redirect using
+the ``SLACK_SUCCESS_REDIRECT`` attribute. Default is ``/``
 
 5. Use the url to authenticate your users in your templates
 
