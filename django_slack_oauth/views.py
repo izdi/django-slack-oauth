@@ -37,7 +37,10 @@ class SlackAuthView(RedirectView):
         messages.add_message(self.request, messages.SUCCESS, 'Your account has been successfully updated with '
                                                              'Slack. You can share your messages within your slack '
                                                              'domain.')
-        return self.response()
+        try:
+            return self.response(redirect=settings.SLACK_SUCCESS_REDIRECT)
+        except AttributeError:
+            return self.response()
 
     def auth_request(self):
         try:
