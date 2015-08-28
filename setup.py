@@ -10,7 +10,7 @@ os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
 setup(
     name='django-slack-oauth',
-    version='0.1',
+    version='0.2',
     packages=['django_slack_oauth'],
     include_package_data=True,
     license='MIT License',
@@ -18,6 +18,8 @@ setup(
     long_description=README,
     author='Sergey Keller',
     author_email='izdieu@gmail.com',
+    url='https://github.com/izdi/django-slack-oauth',
+    download_url='https://github.com/izdi/django-slack-oauth/tarball/0.2',
     install_requires=[
         'Django>=1.6.1',
         'requests',
