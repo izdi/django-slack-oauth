@@ -23,7 +23,7 @@ Set up
         'django_slack_oauth',
     )
 
-2. Run ``./manage syncdb`` to add table for storing token.
+2. Run ``./manage migrate``; ``South`` or ``Django>=1.7`` is required.
 
 3. Include the djslack URLconf in your project urls.py:
 
