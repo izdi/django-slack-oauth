@@ -9,16 +9,16 @@ class Migration(SchemaMigration):
 
     def forwards(self, orm):
         # Adding model 'SlackUser'
-        db.create_table(u'djslack_slackuser', (
+        db.create_table(u'slack_user', (
             ('slacker', self.gf('django.db.models.fields.related.OneToOneField')(related_name='slacker', unique=True, primary_key=True, to=orm['auth.User'])),
             ('access_token', self.gf('django.db.models.fields.CharField')(max_length=64, null=True)),
         ))
-        db.send_create_signal(u'djslack', ['SlackUser'])
+        db.send_create_signal(u'django_slack_oauth', ['SlackUser'])
 
 
     def backwards(self, orm):
         # Deleting model 'SlackUser'
-        db.delete_table(u'djslack_slackuser')
+        db.delete_table(u'slack_user')
 
 
     models = {
@@ -58,11 +58,11 @@ class Migration(SchemaMigration):
             'model': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '100'})
         },
-        u'djslack.slackuser': {
+        u'django_slack_oauth.slack_user': {
             'Meta': {'object_name': 'SlackUser'},
             'access_token': ('django.db.models.fields.CharField', [], {'max_length': '64', 'null': 'True'}),
             'slacker': ('django.db.models.fields.related.OneToOneField', [], {'related_name': "'slacker'", 'unique': 'True', 'primary_key': 'True', 'to': u"orm['auth.User']"})
         }
     }
 
-    complete_apps = ['djslack']
+    complete_apps = ['django_slack_oauth']

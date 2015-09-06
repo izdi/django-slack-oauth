@@ -1,5 +1,5 @@
 *.pyc
-.*.swp
+*.swp
 *.sqlite3
 *.sql
 
@@ -8,5 +8,6 @@
 *.iws
 .idea
 
-node_modules
-static/dist/js
+build/
+dist/
+*.egg-info

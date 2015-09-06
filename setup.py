@@ -10,8 +10,10 @@ os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
 setup(
     name='django-slack-oauth',
-    version='0.2',
-    packages=['django_slack_oauth'],
+    version='0.3',
+    packages=['django_slack_oauth',
+              'django_slack_oauth.migrations',
+              'django_slack_oauth.south_migrations'],
     include_package_data=True,
     license='MIT License',
     description='Handles OAuth and stores slack token',
