@@ -25,7 +25,7 @@ Set up
 
 2. Run ``./manage migrate``; ``South`` or ``Django>=1.7`` is required.
 
-3. Include the djslack URLconf in your project urls.py:
+3. Include the application URLconf in your project urls.py:
 
 ``url(r'^slack/', include('django_slack_oauth.urls')),``
 
