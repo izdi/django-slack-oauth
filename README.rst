@@ -35,12 +35,18 @@ Set up
 
     SLACK_CLIENT_ID = os.environ.get('SLACK_CLIENT_ID')
     SLACK_CLIENT_SECRET = os.environ.get('SLACK_CLIENT_SECRET')
+    
+    # Optional parameters
+    # Defaults
+    SLACK_SCOPE = 'identify,read,post'
+    SLACK_SUCCESS_REDIRECT_URL = '/'
+    
+    # These are in case slack team decides
+    # to change it's endpoints
     SLACK_AUTHORIZATION_URL = 'https://slack.com/oauth/authorize'
-    SLACK_OAUTH_ACCESS = 'https://slack.com/api/oauth.access'
+    SLACK_OAUTH_ACCESS_URL = 'https://slack.com/api/oauth.access'
 
-Also you can provide in your settings custom scope with ``SLACK_SCOPE`` attribute.
-Default scope is ``identify,read,post``. You can set a custom local redirect using
-the ``SLACK_SUCCESS_REDIRECT`` attribute. Default is ``/``
+With optional settings you could provide custom scope or redirect url upon completion
 
 5. Use the url to authenticate your users in your templates
 
