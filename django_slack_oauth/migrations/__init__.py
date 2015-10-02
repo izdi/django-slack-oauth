@@ -1,1 +1,1 @@
-__author__ = 'izdi'
+# -*- coding: utf-8 -*-
