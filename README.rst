@@ -1,9 +1,10 @@
 ======================================
-Django Slack Oauth
+Django Slack OAuth
 ======================================
 
 Django module for handling Slack OAuth.
 In order to use Slack OAuth in your project you need to create application https://api.slack.com/applications
+Users must be authenticated on your site.
 
 
 Install
@@ -29,7 +30,7 @@ Set up
 
 ``url(r'^slack/', include('django_slack_oauth.urls')),``
 
-4. Set up in your settings, these are required:
+4.1 Set up in your settings, these are required:
 
 .. code-block:: python
 
@@ -47,6 +48,17 @@ Set up
     SLACK_OAUTH_ACCESS_URL = 'https://slack.com/api/oauth.access'
 
 With optional settings you could provide custom scope or redirect url upon completion
+
+4.2 To avoid forgery attacks we pass ``state`` param in authorization request on slack endpoint. This state is stored in cache. For production environments I'd highly recommend to set up your cache backend using Redis or memcached other than ``LocMemCache``. Example:
+
+.. code-block:: python 
+
+    CACHES = {
+        'default': {
+            'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+            'LOCATION': '127.0.0.1:11211',
+        }
+    }
 
 5. Use the url to authenticate your users in your templates
 
