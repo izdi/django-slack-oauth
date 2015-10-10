@@ -12,7 +12,7 @@ os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
 setup(
     name='django-slack-oauth',
-    version='0.4',
+    version='0.4.1',
     packages=['django_slack_oauth',
               'django_slack_oauth.migrations',
               'django_slack_oauth.south_migrations'],
