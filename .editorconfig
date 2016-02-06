@@ -1,0 +1,19 @@
+; This file is for unifying the coding style for different editors and IDEs.
+; More information at http://EditorConfig.org
+
+; Editors and IDEs plugins:
+;  — SublimeText — https://github.com/sindresorhus/editorconfig-sublime
+;  — Vim — https://github.com/editorconfig/editorconfig-vim
+;  — JetBrains IDEs — https://github.com/editorconfig/editorconfig-jetbrains
+
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+trim_trailing_whitespace = true
+insert_final_newline = true
+
+[*.{py}]
+indent_style = space
+indent_size = 4
