@@ -16,6 +16,10 @@ import requests
 from . import settings
 from .models import SlackUser
 
+__all__ = (
+    'SlackAuthView',
+)
+
 
 class StateMismatch(Exception):
     pass

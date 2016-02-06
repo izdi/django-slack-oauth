@@ -2,6 +2,11 @@
 
 from django.conf import settings
 
+__all__ = (
+    'settings',
+)
+
+
 default_settings = {
     'SLACK_CLIENT_ID': None,
     'SLACK_CLIENT_SECRET': None,

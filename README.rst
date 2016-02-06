@@ -24,7 +24,7 @@ Set up
         'django_slack_oauth',
     )
 
-2. Run ``./manage migrate``; ``South`` or ``Django>=1.7`` is required.
+2. Run ``./manage migrate``; ``Django>=1.8`` is required.
 
 3. Include the application URLconf in your project urls.py:
 
@@ -36,12 +36,12 @@ Set up
 
     SLACK_CLIENT_ID = os.environ.get('SLACK_CLIENT_ID')
     SLACK_CLIENT_SECRET = os.environ.get('SLACK_CLIENT_SECRET')
-    
+
     # Optional parameters
     # Defaults
     SLACK_SCOPE = 'identify,read,post'
     SLACK_SUCCESS_REDIRECT_URL = '/'
-    
+
     # These are in case slack team decides
     # to change it's endpoints
     SLACK_AUTHORIZATION_URL = 'https://slack.com/oauth/authorize'
@@ -51,7 +51,7 @@ With optional settings you could provide custom scope or redirect url upon compl
 
 4.2 To avoid forgery attacks we pass ``state`` param in authorization request on slack endpoint. This state is stored in cache. For production environments I'd highly recommend to set up your cache backend using Redis or memcached other than ``LocMemCache``. Example:
 
-.. code-block:: python 
+.. code-block:: python
 
     CACHES = {
         'default': {

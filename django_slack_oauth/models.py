@@ -1,7 +1,14 @@
+# -*- coding: utf-8 -*-
+
 from django.conf import settings
 from django.db import models
 
 from jsonfield import JSONField
+
+__all__ = (
+    'SlackUser',
+)
+
 
 class SlackUser(models.Model):
     slacker = models.OneToOneField(settings.AUTH_USER_MODEL, primary_key=True, related_name='slack_user')
