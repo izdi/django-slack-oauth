@@ -25,7 +25,7 @@ setup(
     url='https://github.com/izdi/django-slack-oauth',
     download_url='https://github.com/izdi/django-slack-oauth/tarball/0.4',
     install_requires=[
-        'Django>=1.6.1',
+        'Django>=1.8',
         'requests',
         'jsonfield==1.0.3',
     ],
