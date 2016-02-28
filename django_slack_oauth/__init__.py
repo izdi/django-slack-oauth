@@ -21,7 +21,7 @@ default_settings = {
 
 class Settings(object):
     def __init__(self, app_settings, defaults):
-        for k, v in defaults.iteritems():
+        for k, v in defaults.items():
             setattr(self, k, getattr(app_settings, k, v))
 
 settings = Settings(settings, default_settings)
