@@ -12,7 +12,7 @@ __all__ = (
 
 class SlackUser(models.Model):
     slacker = models.OneToOneField(settings.AUTH_USER_MODEL, primary_key=True, related_name='slack_user')
-    access_token = models.CharField(max_length=64, null=True)
+    access_token = models.CharField(max_length=128, null=True)
     extras = JSONField(null=True)
 
     def is_slacked(self):
