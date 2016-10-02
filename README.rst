@@ -1,9 +1,6 @@
 ======================================
-Django Slack OAuth |version|_
+Django Slack OAuth
 ======================================
-
-.. |version| image:: https://img.shields.io/badge/pypi-0.6-orange.svg
-.. _version: https://pypi.python.org/pypi/django-slack-oauth/0.6
 
 Django module for handling Slack OAuth.
 In order to use Slack OAuth in your project you need to create application https://api.slack.com/applications
