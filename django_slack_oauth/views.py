@@ -1,7 +1,11 @@
 # -*- coding: utf-8 -*-
 
 import uuid
-import urllib
+
+try:
+    from urllib.parse import urlencode
+except ImportError:
+    from urllib import urlencode
 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -67,7 +71,7 @@ class SlackAuthView(RedirectView):
     def auth_request(self):
         state = self.store_state()
 
-        params = urllib.urlencode({
+        params = urlencode({
             'client_id': settings.SLACK_CLIENT_ID,
             'redirect_uri': self.request.build_absolute_uri(reverse('slack_auth')),
             'scope': settings.SLACK_SCOPE,
