@@ -6,7 +6,7 @@ Django module for handling Slack OAuth.
 In order to use Slack OAuth in your project you need to create application https://api.slack.com/applications
 Users must be authenticated on your site.
 
-Specify redirect URL for OAuth to work in your slack app OAuth settings.
+Specify redirect URL for OAuth to work in your slack app OAuth settings:
 ``http(s)://<hostname>/slack/login``
 
 Install
