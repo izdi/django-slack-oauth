@@ -16,6 +16,7 @@ default_settings = {
     'SLACK_SUCCESS_REDIRECT_URL': '/',
 
     'SLACK_SCOPE': 'identify,read,post',
+    'SLACK_PIPELINES': None
 }
 
 
@@ -25,3 +26,4 @@ class Settings(object):
             setattr(self, k, getattr(app_settings, k, v))
 
 settings = Settings(settings, default_settings)
+

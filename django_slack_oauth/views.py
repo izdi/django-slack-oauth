@@ -1,6 +1,10 @@
 # -*- coding: utf-8 -*-
 
 import uuid
+from importlib import import_module
+
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 
 try:
     from urllib.parse import urlencode
@@ -8,11 +12,9 @@ except ImportError:
     from urllib import urlencode
 
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 from django.core.cache import cache
 from django.http.response import HttpResponseRedirect
-from django.utils.decorators import method_decorator
 from django.views.generic import RedirectView
 
 import requests
@@ -34,13 +36,13 @@ class SlackAuthView(RedirectView):
 
     text_error = 'Attempt to update has failed. Please try again.'
 
-    @method_decorator(login_required)
-    def dispatch(self, request, *args, **kwargs):
-        return super(SlackAuthView, self).dispatch(request, *args, **kwargs)
-
     @property
     def cache_key(self):
         return 'slack:' + str(self.request.user)
+
+    @method_decorator(login_required)
+    def dispatch(self, request, *args, **kwargs):
+        return super(SlackAuthView, self).dispatch(request, *args, **kwargs)
 
     def get(self, request, *args, **kwargs):
         code = request.GET.get('code')
@@ -57,14 +59,21 @@ class SlackAuthView(RedirectView):
         if not api_data['ok']:
             return self.error_message(api_data['error'])
 
+        pipelines = settings.SLACK_PIPELINES
+        if pipelines is not None:
+            for _, pipeline in enumerate(pipelines):
+                hook_path = pipeline.split('.')
+                call_pipeline = getattr(import_module('.'.join(hook_path[:-1])), hook_path[-1])
+                if _ + 1 == len(pipelines):
+                    # Terminate at the last pipeline in the list
+                    return call_pipeline(request, api_data)
+                else:
+                    request, api_data = call_pipeline(request, api_data)
+
         slacker, _ = SlackUser.objects.get_or_create(slacker=request.user)
         slacker.access_token = api_data.pop('access_token')
         slacker.extras = api_data
         slacker.save()
-
-        messages.add_message(request, messages.SUCCESS, 'Your account has been successfully updated with '
-                                                        'Slack. You can share your messages within your slack '
-                                                        'domain.')
 
         return self.response()
 
@@ -109,3 +118,4 @@ class SlackAuthView(RedirectView):
 
     def response(self, redirect=settings.SLACK_SUCCESS_REDIRECT_URL):
         return HttpResponseRedirect(redirect)
+
