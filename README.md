@@ -13,45 +13,60 @@ To use Slack OAuth in your Django app, you'll need your `SLACK_CLIENT_ID` and `S
 
 ## Instructions
 
-##### 1. Install using pip:
+1. Install using pip:
 
-```$ pip install django-slack-oauth```
+    ```
+    $ pip install django-slack-oauth
+    ```
 
-##### 2. Add `django_slack_oauth` to `INSTALLED_APPS` in `settings.py`:
+2. Add `django_slack_oauth` to `INSTALLED_APPS` in `settings.py`:
 
-```python
-INSTALLED_APPS = (
-    ...
-    'django_slack_oauth',
-)
+    ```python
+    INSTALLED_APPS = (
+        ...
+        'django_slack_oauth',
+    )
+    ```
+
+3. Run initial migrations:
+
+    ```
+    $ python manage.py migrate
+    ```
+
+4. Add Slack OAuth base url to your project's `urls.py`:
+
+    ```python
+    urlpatterns = [
+        ...
+        url(r'^slack/', include('django_slack_oauth.urls')),
+        ...
+    ]
+    ```
+
+5. Specify your Slack credentials, OAuth scope and Successful Redirect URL in `settings.py`:
+
+    ```python
+    SLACK_CLIENT_ID = os.environ.get('SLACK_CLIENT_ID')
+    SLACK_CLIENT_SECRET = os.environ.get('SLACK_CLIENT_SECRET')
+    SLACK_SCOPE = 'admin,bot'
+    ```
+    If you aren't sure what your scope should be, read more about [Slack OAuth Scopes](https://api.slack.com/docs/oauth-scopes).
+    
+## Example
+
+Add a link to Slack OAuth in one of your templates:
+
+```
+<a href='{% url 'slack_auth' %}'>Get slacked</a>
 ```
 
-##### 3. Run initial migrations:
-```
-$ python manage.py migrate
-```
+After clicking it, you will be redirected to Slack for the OAuth process. If successful, you will be redirected to a view showing a success message. You can change this view by setting `SLACK_SUCCESS_REDIRECT_URL` in `settings.py`. 
 
-##### 4. Add Slack OAuth base url to your project's `urls.py`:
-
-```python
-urlpatterns = [
-    ...
-    url(r'^slack/', include('django_slack_oauth.urls')),
-    ...
-]
-```
-
-##### 5. Specify your Slack credentials, OAuth scope and Successful Redirect URL in `settings.py`:
-
-```python
-SLACK_CLIENT_ID = os.environ.get('SLACK_CLIENT_ID')
-SLACK_CLIENT_SECRET = os.environ.get('SLACK_CLIENT_SECRET')
-SLACK_SCOPE = 'admin,bot'
-SLACK_SUCCESS_REDIRECT_URL = '/'
-```
-If you aren't sure what your scope should be, read more about [Slack OAuth Scopes](https://api.slack.com/docs/oauth-scopes).
+You can then view the successful request and API data in the Admin under Slack OAuth Requests.
 
 
+<br>
 ## Advanced Usage
 
 ### Pipelines
@@ -59,7 +74,7 @@ If you aren't sure what your scope should be, read more about [Slack OAuth Scope
 Pipelines allow you to create actions after a successful OAuth authentication. Some use cases may be:
 
 - Register an account for the user
-- Capture returned API data from Slack after authentication
+- Capture returned API data from Slack after authentication (Default Behaviour)
 - Send Slack messages to the user's Slack team after authentication
 
 They are simply a list of functions, which get called in order. They must accept and return two parameters: `request` and `api_data`, containing the initial request and returned API data respectively.
@@ -74,66 +89,67 @@ SLACK_PIPELINES = [
 ]
 ```
 
-#### Example 1: Show returned data from the OAuth request
 
-*settings.py*
+- **Example 1:** Show returned data from the OAuth request
 
-```python
-...
-SLACK_PIPELINES = [
-    'my_app.pipelines.debug_oauth_request',
-]
-```
+    *settings.py*
 
-*my_app/pipelines.py*
+    ```python
+    ...
+    SLACK_PIPELINES = [
+        'my_app.pipelines.debug_oauth_request',
+    ]
+    ```
 
-```python
-def debug_oauth_request(request, api_data):
-    print(api_data)
-    return request, api_data
-```
+    *my_app/pipelines.py*
 
-#### Example 2: Register User and send an email
+    ```python
+    def debug_oauth_request(request, api_data):
+        print(api_data)
+        return request, api_data
+    ```
 
-*settings.py*
+- **Example 2:** Register User and send an email
 
-```python
-...
-SLACK_PIPELINES = [
-    'my_app.pipelines.register_user',
-    'my_app.pipelines.send_email',
-]
-```
+    *settings.py*
 
-*my_app/pipelines.py*
+    ```python
+    ...
+    SLACK_PIPELINES = [
+        'my_app.pipelines.register_user',
+        'my_app.pipelines.send_email',
+    ]
+    ```
 
-```python
-from django.contrib.auth.models import User
+    *my_app/pipelines.py*
 
-from django_slack_oauth.models import SlackUser
+    ```python
+    from django.contrib.auth.models import User
 
-
-def register_user(request, api_data):
-    user = User.objects.create_user(
-        username=api_data['user_id']
-    )
-
-    slacker, _ = SlackUser.objects.get_or_create(slacker=user)
-    slacker.access_token = api_data.pop('access_token')
-    slacker.extras = api_data
-    slacker.save()
-
-    request.created_user = user
-
-    return request, api_data
+    from django_slack_oauth.models import SlackUser
 
 
-def notify(request, api_data):
-    notify_admins("New user with id {} has been created.".format(request.created_user))
-    notify_user(request.created_user)
-    
-    return request, api_data
-```
+    def register_user(request, api_data):
+        user = User.objects.create_user(
+            username=api_data['user_id']
+        )
+
+        slacker, _ = SlackUser.objects.get_or_create(slacker=user)
+        slacker.access_token = api_data.pop('access_token')
+        slacker.extras = api_data
+        slacker.save()
+
+        request.created_user = user
+
+        return request, api_data
+
+
+    def notify(request, api_data):
+        notify_admins("New user with id {} has been created.".format(request.created_user))
+        notify_user(request.created_user)
+
+        return request, api_data
+    ```
 
 
 ### Slack Endpoints
@@ -157,13 +173,3 @@ CACHES = {
     }
 }
 ```
-
-
-With optional settings you could provide custom scope or redirect url upon completion
-
-4.2 
-5. Use the url to authenticate your users in your templates
-
-``<a href='{% url 'slack_auth' %}'>Get slacked</a>``
-
-6. Find your token in ``slack_user`` table
