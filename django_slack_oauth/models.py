@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
+from jsonfield import JSONField
+
 from django.conf import settings
 from django.db import models
-
-from jsonfield import JSONField
 
 
 class SlackOAuthRequest(models.Model):

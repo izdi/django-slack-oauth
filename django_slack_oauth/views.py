@@ -3,23 +3,26 @@
 import uuid
 from importlib import import_module
 
-from django.contrib.auth.mixins import LoginRequiredMixin
+import requests
+
+from django.contrib import messages
+from django.core.urlresolvers import reverse
+from django.core.cache import cache
+from django.http.response import HttpResponseRedirect, HttpResponse
 from django.views import View
+from django.views.generic import RedirectView
+
+from . import settings
 
 try:
     from urllib.parse import urlencode
 except ImportError:
     from urllib import urlencode
 
-from django.contrib import messages
-from django.core.urlresolvers import reverse
-from django.core.cache import cache
-from django.http.response import HttpResponseRedirect, HttpResponse
-from django.views.generic import RedirectView
-
-import requests
-
-from . import settings
+__all__ = (
+    'SlackAuthView',
+    'DefaultSuccessView'
+)
 
 
 class StateMismatch(Exception):
@@ -58,6 +61,7 @@ class SlackAuthView(RedirectView):
             return self.error_message(api_data['error'])
 
         pipelines = settings.SLACK_PIPELINES
+
         # pipelines is a list of the callables to be executed
         pipelines = [getattr(import_module('.'.join(p.split('.')[:-1])), p.split('.')[-1]) for p in pipelines]
         return self.execute_pipelines(request, api_data, pipelines)

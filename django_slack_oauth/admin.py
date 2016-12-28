@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from django_slack_oauth.models import SlackOAuthRequest
+from .models import SlackOAuthRequest
 
 
 @admin.register(SlackOAuthRequest)
