@@ -44,7 +44,7 @@ To use Slack OAuth in your Django app, you'll need your `SLACK_CLIENT_ID` and `S
     ]
     ```
 
-5. Specify your Slack credentials, OAuth scope and Successful Redirect URL in `settings.py`:
+5. Specify your Slack credentials and OAuth Scope in `settings.py`:
 
     ```python
     SLACK_CLIENT_ID = os.environ.get('SLACK_CLIENT_ID')
@@ -52,7 +52,7 @@ To use Slack OAuth in your Django app, you'll need your `SLACK_CLIENT_ID` and `S
     SLACK_SCOPE = 'admin,bot'
     ```
     If you aren't sure what your scope should be, read more about [Slack OAuth Scopes](https://api.slack.com/docs/oauth-scopes).
-    
+
 ## Example
 
 Add a link to Slack OAuth in one of your templates:
@@ -61,7 +61,7 @@ Add a link to Slack OAuth in one of your templates:
 <a href='{% url 'slack_auth' %}'>Get slacked</a>
 ```
 
-After clicking it, you will be redirected to Slack for the OAuth process. If successful, you will be redirected to a view showing a success message. You can change this view by setting `SLACK_SUCCESS_REDIRECT_URL` in `settings.py`. 
+After clicking it, you will be redirected to Slack for the OAuth process. If successful, you will be redirected to a view showing a success message. You can change this view by setting `SLACK_SUCCESS_REDIRECT_URL` in `settings.py`.
 
 You can then view the successful request and API data in the Admin under Slack OAuth Requests.
 
