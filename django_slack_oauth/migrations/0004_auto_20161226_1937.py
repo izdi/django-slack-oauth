@@ -28,11 +28,4 @@ class Migration(migrations.Migration):
                 ('associated_user', models.OneToOneField(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
             ],
         ),
-        migrations.RemoveField(
-            model_name='slackuser',
-            name='slacker',
-        ),
-        migrations.DeleteModel(
-            name='SlackUser',
-        ),
     ]

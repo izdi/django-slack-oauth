@@ -1,4 +1,6 @@
-from .models import SlackOAuthRequest
+from django.contrib import messages
+
+from .models import SlackOAuthRequest, SlackUser
 
 
 def log_request(request, api_data):
