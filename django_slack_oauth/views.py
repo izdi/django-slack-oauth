@@ -9,8 +9,7 @@ from django.contrib import messages
 from django.core.urlresolvers import reverse
 from django.core.cache import cache
 from django.http.response import HttpResponseRedirect, HttpResponse
-from django.views import View
-from django.views.generic import RedirectView
+from django.views.generic import RedirectView, View
 
 from . import settings
 
@@ -30,7 +29,6 @@ class StateMismatch(Exception):
 
 
 class DefaultSuccessView(View):
-
     def get(self, request):
         messages.success(request, "You've been successfully authenticated.")
         return HttpResponse("Slack OAuth login successful.")
@@ -69,7 +67,7 @@ class SlackAuthView(RedirectView):
     def execute_pipelines(self, request, api_data, pipelines):
         if len(pipelines) == 0:
             # Terminate at the successful redirect
-            return HttpResponseRedirect(settings.SLACK_SUCCESS_REDIRECT_URL)
+            return self.response()
         else:
             # Call the next function in the queue
             request, api_data = pipelines.pop(0)(request, api_data)
@@ -112,8 +110,7 @@ class SlackAuthView(RedirectView):
 
     def error_message(self, msg=text_error):
         messages.add_message(self.request, messages.ERROR, '%s' % msg)
-        return self.response()
+        return self.response(redirect=settings.SLACK_ERROR_REDIRECT_URL)
 
     def response(self, redirect=settings.SLACK_SUCCESS_REDIRECT_URL):
         return HttpResponseRedirect(redirect)
-
