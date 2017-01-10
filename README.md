@@ -151,6 +151,7 @@ SLACK_PIPELINES = [
         return request, api_data
     ```
 
+_Thanks to_ [Daniel van Flymen](https://github.com/dvf)
 
 ### Slack Endpoints
 
