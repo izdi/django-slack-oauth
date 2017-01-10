@@ -27,7 +27,7 @@ setup(
     author='Sergey Keller',
     author_email='izdieu@gmail.com',
     url='https://github.com/izdi/django-slack-oauth',
-    download_url='https://github.com/izdi/django-slack-oauth/tarball/0.6.1',
+    download_url='https://github.com/izdi/django-slack-oauth/tarball/1.0.0',
     install_requires=[
         'Django>=1.8',
         'requests',
