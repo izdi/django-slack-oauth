@@ -2,6 +2,7 @@
 
 from copy import deepcopy
 
+from django.contrib import messages
 from .models import SlackOAuthRequest, SlackUser
 
 
@@ -37,6 +38,10 @@ def slack_user(request, api_data):
     slacker.access_token = data.pop('access_token')
     slacker.extras = data
     slacker.save()
+
+    messages.add_message(request, messages.SUCCESS, 'Your account has been successfully updated with '
+                                                    'Slack. You can share your messages within your slack '
+                                                    'domain.')
 
     return request, api_data
 
