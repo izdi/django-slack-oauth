@@ -1,0 +1,15 @@
+language: python
+python:
+- '2.7'
+- '3.5'
+- '3.6'
+script:
+- touch foo
+deploy:
+  provider: pypi
+  user: izdi
+  password:
+    secure: OypI0x2+3gWTW3gLCp0uTRBSl7JsiK9i6Frrd+QFyyAl+r+W0/opGDqCWsujOJok2z7WImgO+r3WyFSRbkd+FqcfZDl+r10DgnCwgn46uxFyaw1T3kP39kribdJKUqJf4yIqmHwtx34+pwetcTvwF4o/xofmSojBwVLcljC5NMh9eBTVegHnRBhRe/MMBYu0bVyiCscmfiGHTq88Ly83fxHaT5SSnfqByptAhBtdTLQCRvhyp51Aj/x8PX+dygrwSEwYJ9z/Ikn0T3viyPC0nVCEodn2ZXeYypGzR44q7AaTZ2lrIJzeQNyrjI9bvYzM6CEy8RmyMEHpD0iUapi/EHsZ+chvwRfY5+zQyRZWjr2vAD5rBMejYNoG1OcJwBbwivB+ogqpBmKWcjwGuFPizcqDM/XM0JnmeGZde3fDZRCFgJyuHnbDIG0yWHd2GVaRYDIexg42Z+MvfLuSz4tsjdDHs28yT7CeJb8wrjfDc4d9g8Lqg1tuZkzxru23KSQKssGwyqvNHTyH44YsTjhG0CBR+1i7f/yeQcvif2zbMCN1MGLEJym04yeHPFwDB6IZH/uHv389EYDZlD7c2aKu7NKlkFrWBIA5YOlpzfpOxCegETsfLvvdonZewVfRPIDFj0moeSW8z9azz+/oQs1KY3j95Zfj1DLU57tjUgtBRc4=
+  on:
+    tags: true
+    branch: master
