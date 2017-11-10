@@ -66,7 +66,6 @@ After clicking it, you will be redirected to Slack for the OAuth process. If suc
 You can then view the successful request and API data in the Admin under Slack OAuth Requests.
 
 
-<br>
 ## Advanced Usage
 
 ### Pipelines
@@ -130,23 +129,27 @@ SLACK_PIPELINES = [
 
 
     def register_user(request, api_data):
-        user = User.objects.create_user(
-            username=api_data['user_id']
-        )
+        if api_data['ok']:
+            user, created = User.objects.get_or_create(
+                username=api_data['team_id']+':'+api_data['user_id']
+            )
 
-        slacker, _ = SlackUser.objects.get_or_create(slacker=user)
-        slacker.access_token = api_data.pop('access_token')
-        slacker.extras = api_data
-        slacker.save()
+            if user.is_active:
+                slacker, _ = SlackUser.objects.get_or_create(slacker=user)
+                slacker.access_token = api_data.pop('access_token')
+                slacker.extras = api_data
+                slacker.save()
 
-        request.created_user = user
+            if created:
+                request.created_user = user
 
         return request, api_data
 
 
     def notify(request, api_data):
-        notify_admins("New user with id {} has been created.".format(request.created_user))
-        notify_user(request.created_user)
+        if hasattr(request, 'created_user'):
+            notify_admins("New user with id {} has been created.".format(request.created_user))
+            notify_user(request.created_user)
 
         return request, api_data
     ```
