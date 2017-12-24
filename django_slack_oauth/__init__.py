@@ -1,7 +1,12 @@
 # -*- coding: utf-8 -*-
 
+import django
 from django.conf import settings
-from django.core.urlresolvers import reverse_lazy
+DJANGO_MAJOR_VERSION =  int(django.__version__.split('.')[0])
+if DJANGO_MAJOR_VERSION < 2:
+    from django.core.urlresolvers import reverse_lazy
+else:
+    from django.urls import reverse_lazy
 
 __all__ = (
     'settings',
