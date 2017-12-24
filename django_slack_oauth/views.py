@@ -5,8 +5,16 @@ from importlib import import_module
 
 import requests
 
+
+import django
 from django.contrib import messages
-from django.core.urlresolvers import reverse
+
+DJANGO_MAJOR_VERSION =  int(django.__version__.split('.')[0])
+if DJANGO_MAJOR_VERSION < 2:
+    from django.core.urlresolvers import reverse
+else:
+    from django.urls import reverse
+
 from django.core.cache import cache
 from django.http.response import HttpResponseRedirect, HttpResponse
 from django.views.generic import RedirectView, View
