@@ -5,7 +5,6 @@ from importlib import import_module
 
 import requests
 
-
 import django
 from django.contrib import messages
 
