@@ -15,7 +15,7 @@ __all__ = (
 
 @python_2_unicode_compatible
 class SlackUser(models.Model):
-    slacker = models.OneToOneField(settings.AUTH_USER_MODEL, primary_key=True, related_name='slack_user')
+    slacker = models.OneToOneField(settings.AUTH_USER_MODEL, primary_key=True, related_name='slack_user', on_delete=models.CASCADE)
     access_token = models.CharField(max_length=128, null=True)
     extras = JSONField(null=True)
 
@@ -30,7 +30,7 @@ class SlackUser(models.Model):
 
 
 class SlackOAuthRequest(models.Model):
-    associated_user = models.OneToOneField(settings.AUTH_USER_MODEL, null=True, blank=True)
+    associated_user = models.OneToOneField(settings.AUTH_USER_MODEL, null=True, blank=True, on_delete=models.CASCADE)
     access_token = models.CharField(max_length=128, null=True, blank=True)
     extras = JSONField(null=True, blank=True)
 
