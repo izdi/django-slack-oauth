@@ -1,6 +1,6 @@
 <img src="http://i.imgur.com/YF8yAJS.png" width="80">
 
-# Django Slack OAuth
+# Django Slack OAuth [![Build Status](https://travis-ci.org/izdi/django-slack-oauth.svg?branch=master)](https://travis-ci.org/izdi/django-slack-oauth)
 
 A lightweight module for integrating your Django application with Slack.
 
