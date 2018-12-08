@@ -14,7 +14,6 @@ if DJANGO_MAJOR_VERSION < 2:
 else:
     from django.urls import reverse
 
-from django.core.cache import cache
 from django.http.response import HttpResponseRedirect, HttpResponse
 from django.views.generic import RedirectView, View
 
@@ -45,10 +44,6 @@ class SlackAuthView(RedirectView):
     permanent = True
 
     text_error = 'Attempt to update has failed. Please try again.'
-
-    @property
-    def cache_key(self):
-        return 'slack:' + str(self.request.user)
 
     def get(self, request, *args, **kwargs):
         code = request.GET.get('code')
@@ -103,8 +98,7 @@ class SlackAuthView(RedirectView):
         return requests.get(settings.SLACK_OAUTH_ACCESS_URL, params=params)
 
     def validate_state(self, state):
-        state_before = cache.get(self.cache_key)
-        cache.delete(self.cache_key)
+        state_before = self.request.session.pop('state')
         if state_before != state:
             raise StateMismatch('State mismatch upon authorization completion.'
                                 ' Try new request.')
@@ -112,7 +106,7 @@ class SlackAuthView(RedirectView):
 
     def store_state(self):
         state = str(uuid.uuid4())[:6]
-        cache.set(self.cache_key, state)
+        self.request.session['state'] = state
         return state
 
     def error_message(self, msg=text_error):
